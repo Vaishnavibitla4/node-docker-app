@@ -12,13 +12,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh '''
+                bat '''
                 docker build -t node-docker-app:${BUILD_NUMBER} .
                 docker tag node-docker-app:${BUILD_NUMBER} Vaishnavibitla4/node-docker-app:${BUILD_NUMBER}
                 '''
@@ -27,13 +27,13 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push Vaishnavibitla4/node-docker-app:${BUILD_NUMBER}'
+                bat 'docker push Vaishnavibitla4/node-docker-app:${BUILD_NUMBER}'
             }
         }
         
         stage('Create container') {
             steps {
-                sh 'docker run -d -p 3000:8080 Vaishnavibitla4/node-docker-app:${BUILD_NUMBER}'
+                bat 'docker run -d -p 3000:8080 Vaishnavibitla4/node-docker-app:${BUILD_NUMBER}'
             }
         }
 
