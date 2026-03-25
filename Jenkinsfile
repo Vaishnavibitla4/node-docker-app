@@ -20,7 +20,7 @@ pipeline {
             steps {
                 bat '''
                 docker build -t node-docker-app:%BUILD_NUMBER% .
-                docker tag node-docker-app:%BUILD_NUMBER% docker.io/vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
+                docker tag node-docker-app:%BUILD_NUMBER% docker.io/vaishnavibitla/node-docker-app:%BUILD_NUMBER%
                 '''
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                 )]) {
                     bat '''
                     docker login -u %DOCKER_USER% -p %DOCKER_PASS%
-                    docker push docker.io/vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
+                    docker push docker.io/vaishnavibitla/node-docker-app:%BUILD_NUMBER%
                     '''
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
         
         stage('Create container') {
             steps {
-                bat 'docker run -d -p 3000:8080 Vaishnavibitla4/node-docker-app:%BUILD_NUMBER%'
+                bat 'docker run -d -p 3000:8080 Vaishnavibitla/node-docker-app:%BUILD_NUMBER%'
             }
         }
 
