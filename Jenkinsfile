@@ -20,16 +20,23 @@ pipeline {
             steps {
                 bat '''
                 docker build -t node-docker-app:%BUILD_NUMBER% .
-                docker tag node-docker-app:%BUILD_NUMBER% Vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
+                docker tag node-docker-app:%BUILD_NUMBER% docker.io/vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
                 '''
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                bat '''
-                docker push docker.io/Vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
-                '''
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    bat '''
+                    docker login -u %DOCKER_USER% -p %DOCKER_PASS%
+                    docker push docker.io/vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
+                    '''
+                }
             }
         }
         
