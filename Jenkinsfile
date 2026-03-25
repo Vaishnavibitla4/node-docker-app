@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('Clean Docker') {
+            steps {
+                bat 'docker system prune -f'
+            }
+        }
+
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(
