@@ -42,7 +42,7 @@ pipeline {
         
         stage('Create container') {
             steps {
-                bat 'docker run -d -p 3000:8080 Vaishnavibitla/node-docker-app:%BUILD_NUMBER%'
+                bat 'docker run -d -p 3000:8080 vaishnavibitla/node-docker-app:%BUILD_NUMBER%'
             }
         }
 
