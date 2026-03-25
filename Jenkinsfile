@@ -27,7 +27,9 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                bat 'docker push Vaishnavibitla4/node-docker-app:%BUILD_NUMBER%'
+                bat '''
+                docker push docker.io/Vaishnavibitla4/node-docker-app:%BUILD_NUMBER%
+                '''
             }
         }
         
